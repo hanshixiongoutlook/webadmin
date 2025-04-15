@@ -1,0 +1,37 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: webadmin
+  servlet:
+    mutipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hans_integration?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: hsx@123456
+  jpa:
+    show-sql: true
+  mybatis:
+    configuration:
+      log-impl:
+      map-underscore-to-camel-case: true
+logging:
+  level:
+    root: INFO
+    com.example.demo: DEBUG
+  file:
+    name: logs/myapp.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+      file-name-pattern: logs/myapp-%d{yyyy-MM-dd}.%i.log.gz
