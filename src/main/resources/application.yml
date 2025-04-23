@@ -6,9 +6,11 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-  mvc:
-    locale-resolver: session
-    locale: en
+#  mvc:
+#    locale-resolver: session
+#    locale: en
+#    contentnegotiation:
+#      default-content-type: application/json
   messages:
     basename: localization/messages
     encoding: UTF-8

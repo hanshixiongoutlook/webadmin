@@ -13,7 +13,6 @@ import java.util.Locale;
  * 处理全局语言设置
  * 将请求头中的Accept-Language:zh-CN，放到上下文中
  */
-@Component
 public class LanguageInterceptor implements HandlerInterceptor {
 
     @Override
