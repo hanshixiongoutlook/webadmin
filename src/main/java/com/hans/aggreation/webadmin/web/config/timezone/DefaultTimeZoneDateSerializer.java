@@ -1,4 +1,4 @@
-package com.hans.aggreation.webadmin.web.config;
+package com.hans.aggreation.webadmin.web.config.timezone;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

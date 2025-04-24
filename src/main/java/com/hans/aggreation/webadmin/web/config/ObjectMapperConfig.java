@@ -2,10 +2,11 @@ package com.hans.aggreation.webadmin.web.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.hans.aggreation.webadmin.web.config.timezone.DefaultTimeZoneDateSerializer;
+import com.hans.aggreation.webadmin.web.config.timezone.TimeZoneDateDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
