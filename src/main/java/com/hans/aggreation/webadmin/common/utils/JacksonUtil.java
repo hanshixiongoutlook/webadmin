@@ -27,13 +27,15 @@ public class JacksonUtil {
 //        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //忽略值为默认值的属性
 //        mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Environment env = SpringContextUtils.getBean(Environment.class);
-        String timezone = env.getProperty("spring.jackson.time-zone");
-        if (StringUtils.isNotBlank(timezone)) {
-            simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-        }
-        mapper.setDateFormat(simpleDateFormat);
+
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Environment env = SpringContextUtils.getBean(Environment.class);
+//        String timezone = env.getProperty("spring.jackson.time-zone");
+//        if (StringUtils.isNotBlank(timezone)) {
+//            simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
+//        }
+        SimpleDateFormat sysFormatter = DateFormatUtils.getSysFormatter();
+        mapper.setDateFormat(sysFormatter);
     }
 
     public static <T> List<T> parseArray(String json, Class<T> clazz) {

@@ -3,7 +3,9 @@ package com.hans.aggreation.webadmin.web.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Date;
 /**
  * 自定义Json解析器
  */
+@ConditionalOnProperty(name="spring.jackson.i18n-eable", havingValue = "true")
 @Configuration
 public class ObjectMapperConfig {
     @Autowired
