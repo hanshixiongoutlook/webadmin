@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.env.Environment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +28,11 @@ public class JacksonUtil {
         //忽略值为默认值的属性
 //        mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Environment env = SpringContextUtils.getBean(Environment.class);
+        String timezone = env.getProperty("spring.jackson.time-zone");
+        if (StringUtils.isNotBlank(timezone)) {
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
+        }
         mapper.setDateFormat(simpleDateFormat);
     }
 
