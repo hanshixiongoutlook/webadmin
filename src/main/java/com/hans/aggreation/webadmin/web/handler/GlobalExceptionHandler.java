@@ -13,4 +13,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<RestResponse> handleGeneralException(Exception ex) {
         return ResponseEntity.ok().body(RestResponse.error(ex.getMessage()));
     }
+
 }

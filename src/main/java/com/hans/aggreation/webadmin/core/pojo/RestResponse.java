@@ -24,9 +24,9 @@ public class RestResponse<T> implements Serializable {
         RestResponse<T> restResponse = new RestResponse<>();
         return restResponse.status(STATUS_SUCCESS);
     }
-    public static <T> RestResponse<T> success(String message) {
+    public static <T> RestResponse<T> success(T data) {
         RestResponse<T> restResponse = new RestResponse<>();
-        return restResponse.status(STATUS_SUCCESS).message(message);
+        return restResponse.status(STATUS_SUCCESS).data(data);
     }
     public static <T> RestResponse<T> success(String message, T data) {
         RestResponse<T> restResponse = new RestResponse<>();

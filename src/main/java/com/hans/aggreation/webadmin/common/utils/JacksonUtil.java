@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class JacksonUtil {
     private static ObjectMapper mapper = new ObjectMapper();
@@ -24,7 +25,9 @@ public class JacksonUtil {
 //        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //忽略值为默认值的属性
 //        mapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_DEFAULT);
-        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        mapper.setDateFormat(simpleDateFormat);
     }
 
     public static <T> List<T> parseArray(String json, Class<T> clazz) {
