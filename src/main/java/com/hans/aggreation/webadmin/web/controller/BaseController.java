@@ -13,16 +13,15 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * 时区国际化Base
  * 对于直接从参数获取Date的场景，如，function(@RequestParam Date time)
  * 如需国际化则需要继承此Controller即可自动完成时区转换
  */
-public class BaseI18nController {
+public class BaseController {
     @Value("${spring.jackson.date-format:yyyy-MM-dd HH:mm:ss}")
     private String jsonDateFormatter;
     @Value("${spring.jackson.time-zone:GMT}")
     private String defaultTimeZone;
-    @Value("${spring.jackson.i18n-eable:false}")
+    @Value("${spring.jackson.i18n-enable:false}")
     private boolean i18nEable;
     @InitBinder
     public void initBinder(WebDataBinder binder, HttpServletRequest request) {

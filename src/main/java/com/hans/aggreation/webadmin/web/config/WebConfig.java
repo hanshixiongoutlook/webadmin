@@ -52,7 +52,10 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer.defaultContentType(MediaType.APPLICATION_JSON).favorPathExtension(true).mediaType("json", MediaType.APPLICATION_JSON).mediaType("xml", MediaType.APPLICATION_XML);
+        configurer
+                .mediaType("xml", MediaType.APPLICATION_XML)
+                .mediaType("json", MediaType.APPLICATION_JSON)
+                .defaultContentType(MediaType.APPLICATION_JSON);
     }
 
 

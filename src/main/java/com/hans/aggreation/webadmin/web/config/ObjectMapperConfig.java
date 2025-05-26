@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * 自定义Json解析器
  */
-@ConditionalOnProperty(name="spring.jackson.i18n-eable", havingValue = "true")
+@ConditionalOnProperty(name="spring.jackson.i18n-enable", havingValue = "true")
 @Configuration
 public class ObjectMapperConfig {
     @Autowired

@@ -1,35 +1,32 @@
 server:
   port: 8080
 spring:
-  http:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-#  mvc:
-#    locale-resolver: session
-#    locale: en
-#    contentnegotiation:
-#      default-content-type: application/json
-  messages:
-    basename: localization/messages
-    encoding: UTF-8
-    fallback-to-system-locale: false
-    always-use-message-format: true
   application:
     name: webadmin
   servlet:
     mutipart:
       max-file-size: 10MB
       max-request-size: 10MB
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  # 多语言配置
+  messages:
+    basename: localization/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+    always-use-message-format: true
+  # JSON解析配置，影响：Restful API、JsonUtil、BaseController
   jackson:
     # 是否启用时区国际化配置
-    i18n-eable: false
+    i18n-enable: false
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hans_integration?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/webadmin?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: root
     password: hsx@123456
   jpa:
@@ -40,12 +37,12 @@ spring:
       map-underscore-to-camel-case: true
 logging:
   level:
-    root: INFO
+    root: DEBUG
     com.example.demo: DEBUG
   file:
     name: logs/myapp.log
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   logback:
     rollingpolicy:
