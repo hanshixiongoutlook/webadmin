@@ -1,7 +1,5 @@
 package com.hans.aggreation.webadmin.core.pojo;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 

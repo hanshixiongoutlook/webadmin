@@ -19,10 +19,10 @@ import java.util.TimeZone;
 @RequestMapping("/example")
 @RestController("ExampleController")
 public class ExampleController extends BaseController {
+
     Logger log = LoggerFactory.getLogger(this.getClass());
-    @GetMapping(value = "/langTest")
+    @GetMapping(value = "/langtest")
     public RestResponse<String> langTest(@RequestParam("msg")String msg, HttpServletResponse response) {
-//        response.setHeader("x-trace-id","test313231");
         RestResponse<String> success = RestResponse.success(Localization.getLocalizedString("greeting.hello", List.of(msg)));
         return success;
     }

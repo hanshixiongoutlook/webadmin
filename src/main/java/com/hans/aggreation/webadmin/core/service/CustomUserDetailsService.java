@@ -1,36 +1,36 @@
 package com.hans.aggreation.webadmin.core.service;
 
 import com.hans.aggreation.webadmin.core.model.UserModel;
+import com.hans.aggreation.webadmin.core.pojo.CustomUserDetails;
+import com.hans.aggreation.webadmin.core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.data.domain.Example;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
+/**
+ * Spring Security 集成简单登录
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel user = userService.getUser(username);
-        if (user==null) {
+        UserModel query = new UserModel();
+        query.setUsername(username);
+        Optional<UserModel> one = userRepository.findOne(Example.of(query));
+        if (!one.isPresent()) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new User(
-                user.getUsername(),
-                user.getPassword(),
-                true,
-                true, // accountNonExpired
-                true, // credentialsNonExpired
-                true, // accountNonLocked
-                List.of(new SimpleGrantedAuthority("ADMIN"))
-        );
+        UserModel userModel = one.get();
+        CustomUserDetails customUserDetails = new CustomUserDetails();
+        customUserDetails.setModel(userModel);
+        return customUserDetails;
     }
 }

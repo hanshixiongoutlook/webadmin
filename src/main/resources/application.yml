@@ -30,7 +30,7 @@ spring:
     username: root
     password: hsx@123456
   jpa:
-    show-sql: true
+    show-sql: false
   mybatis:
     configuration:
       log-impl:
