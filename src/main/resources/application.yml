@@ -1,5 +1,14 @@
 server:
   port: 8080
+  # 设置session有效时长，通常为30min，超过此时间不操作后，登录状态自动失效
+  servlet:
+    session:
+      timeout: 1800
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
 spring:
   application:
     name: webadmin
@@ -37,8 +46,8 @@ spring:
       map-underscore-to-camel-case: true
 logging:
   level:
-    root: DEBUG
-    com.example.demo: DEBUG
+    root: INFO
+    com.hans: DEBUG
   file:
     name: logs/myapp.log
   pattern:
