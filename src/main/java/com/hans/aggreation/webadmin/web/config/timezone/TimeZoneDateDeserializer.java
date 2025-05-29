@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.hans.aggreation.webadmin.common.consts.CommonConsts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -25,7 +26,7 @@ public class TimeZoneDateDeserializer extends JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         TimeZone timezone = (TimeZone) RequestContextHolder.currentRequestAttributes()
-                .getAttribute("timezone", RequestAttributes.SCOPE_REQUEST);
+                .getAttribute(CommonConsts.HEADER_X_TIMEZONE, RequestAttributes.SCOPE_REQUEST);
         SimpleDateFormat dateFormat = new SimpleDateFormat(jsonDateFormatter);
         dateFormat.setTimeZone(timezone);
         try {

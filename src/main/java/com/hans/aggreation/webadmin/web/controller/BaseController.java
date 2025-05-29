@@ -1,5 +1,6 @@
 package com.hans.aggreation.webadmin.web.controller;
 
+import com.hans.aggreation.webadmin.common.consts.CommonConsts;
 import com.hans.aggreation.webadmin.common.utils.DateFormatUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,7 @@ public class BaseController {
     @InitBinder
     public void initBinder(WebDataBinder binder, HttpServletRequest request) {
         // 从请求参数或 Header 中获取时区
-        String timezone = request.getHeader("timezone");
+        String timezone = request.getHeader(CommonConsts.HEADER_X_TIMEZONE);
         if (timezone == null || timezone.isEmpty()) {
             timezone = defaultTimeZone; // 默认值
         }
