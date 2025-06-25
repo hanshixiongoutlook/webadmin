@@ -1,4 +1,4 @@
-package com.hans.aggreation.webadmin.web.interceptor;
+package com.hans.aggreation.webadmin.web.config.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

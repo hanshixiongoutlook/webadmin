@@ -1,4 +1,4 @@
-package com.hans.aggreation.webadmin.web.handler;
+package com.hans.aggreation.webadmin.web.config.handler;
 
 import com.hans.aggreation.webadmin.core.pojo.RestResponse;
 import org.slf4j.Logger;

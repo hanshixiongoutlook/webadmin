@@ -1,6 +1,7 @@
 package com.hans.aggreation.webadmin.core.service;
 
 import com.hans.aggreation.webadmin.common.utils.JwtUtils;
+import com.hans.aggreation.webadmin.common.utils.localization.Localization;
 import com.hans.aggreation.webadmin.core.pojo.CustomUserDetails;
 import com.hans.aggreation.webadmin.core.pojo.RestResponse;
 import com.hans.aggreation.webadmin.core.pojo.dto.LoginDTO;
@@ -13,11 +14,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 public class OAuth2LoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
+
     public RestResponse<String> login(LoginDTO loginDTO) {
         String username = loginDTO.getUsername();
         String password = loginDTO.getPassword();
@@ -30,10 +34,11 @@ public class OAuth2LoginService {
                 String token = JwtUtils.generateToken(user.getUsername());
                 return RestResponse.success(token);
             }
-        } catch (AuthenticationException e) {
+        } catch (Exception e) {
             log.debug("认证失败", e);
+            return RestResponse.error(Localization.getLocalizedString("oauth2.login.failed", List.of(e.getMessage())));
         }
-        return RestResponse.error("认证失败");
+        return RestResponse.error(Localization.getLocalizedString("oauth2.login.error"));
     }
 
 }

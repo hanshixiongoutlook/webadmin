@@ -1,22 +1,12 @@
 package com.hans.aggreation.webadmin.web.config;
 
-import com.hans.aggreation.webadmin.web.interceptor.LanguageInterceptor;
-import com.hans.aggreation.webadmin.web.interceptor.TimeZoneInterceptor;
-import jakarta.servlet.http.HttpServletRequest;
+import com.hans.aggreation.webadmin.web.config.interceptor.LanguageInterceptor;
+import com.hans.aggreation.webadmin.web.config.interceptor.TimeZoneInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.beans.PropertyEditorSupport;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {

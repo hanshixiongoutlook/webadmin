@@ -9,6 +9,12 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+jwt:
+  secret-key: pHWr4tDJpKQ2QN9hiFEfzrGaW6DJTZAJ
+  # access-token过期时间30min
+  access-token-expired: 1800
+  # refresh-token过期时间7天
+  refresh-token-expired: 604800
 spring:
   application:
     name: webadmin
