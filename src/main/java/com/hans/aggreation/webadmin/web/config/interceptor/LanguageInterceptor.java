@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
@@ -15,11 +16,15 @@ import java.util.Locale;
  * 将请求头中的Accept-Language:zh-CN，放到上下文中
  */
 public class LanguageInterceptor implements HandlerInterceptor {
+    private LocaleResolver localeResolver;
+
+    public LanguageInterceptor(LocaleResolver localeResolver) {
+        this.localeResolver = localeResolver;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        AcceptHeaderLocaleResolver acceptHeaderLocaleResolver = new AcceptHeaderLocaleResolver();
-        Locale locale = acceptHeaderLocaleResolver.resolveLocale(request);
+        Locale locale = localeResolver.resolveLocale(request);
         LocaleContextHolder.setLocale(locale);
         response.setHeader("x-trace-id", System.currentTimeMillis()+"");
         return true;
