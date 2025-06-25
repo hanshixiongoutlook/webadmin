@@ -28,7 +28,10 @@ public class StartLogCommandLineRunner implements CommandLineRunner, Ordered {
 
     @Value("${springfox.documentation.enabled:true}")
     private boolean swaggerEnabled;
-
+    @Value("${spring.security.enabled:false}")
+    private boolean springSecurityEnabled;
+    @Value("${spring.security.type:}")
+    private String springSecurityType;
     public StartLogCommandLineRunner(Environment env) {
         this.env = env;
     }
@@ -46,6 +49,8 @@ public class StartLogCommandLineRunner implements CommandLineRunner, Ordered {
         sb.append("\n----------------------------------------------------------\n")
                 .append("\t应用【").append(applicationName).append("】已经启动！\n")
                 .append("\t激活profile:\t").append(profiles).append("\n")
+                .append("\tspring.security.enabled:\t").append(springSecurityEnabled).append("\n")
+                .append("\tspring.security.type:\t").append(springSecurityType).append("\n")
                 .append("\t访问路径:\n")
                 .append("\t本地: \thttp://localhost:").append(port).append(contextPath).append("\n")
                 .append("\t外部: \thttp://").append(IpUtil.getLocalIp()).append(":").append(port).append(contextPath).append("\n");

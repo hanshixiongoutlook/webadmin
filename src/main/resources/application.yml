@@ -44,6 +44,10 @@ spring:
     configuration:
       log-impl:
       map-underscore-to-camel-case: true
+  security:
+    enabled: true
+    # basic/OAuth2
+    type: OAuth2
 logging:
   level:
     root: INFO

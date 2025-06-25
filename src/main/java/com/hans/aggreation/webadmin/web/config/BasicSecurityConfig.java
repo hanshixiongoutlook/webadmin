@@ -1,26 +1,30 @@
 package com.hans.aggreation.webadmin.web.config;
 
 import com.hans.aggreation.webadmin.core.service.CustomUserDetailsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
+@Slf4j
+@ConditionalOnExpression("${spring.security.enabled:false} and '${spring.security.type}'.equals('basic')")
 @EnableWebSecurity(debug = false)
 @Configuration
-public class SecurityConfig {
-
+public class BasicSecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        System.err.println("========= Enable BasicSecurityConfig.");
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/css/**")
                         .permitAll().anyRequest().authenticated()
@@ -35,6 +39,9 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 ).authenticationProvider(authenticationProvider())
+                // 开启Basic认证，支持通过在Header中添加 Authorization方式调用接口
+                // Authorization Basic Base64Encode(username:password)
+                .httpBasic(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable()); // 禁用 CSRF 保护（如果需要）
         return http.build();
     }

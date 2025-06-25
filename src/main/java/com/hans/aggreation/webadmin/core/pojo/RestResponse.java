@@ -9,6 +9,9 @@ public class RestResponse<T> implements Serializable {
     public static final String STATUS_SUCCESS = "S";
     public static final String STATUS_ERROR = "E";
 
+    public static final String DEFAULT_MSG_SUCCESS = "ok";
+    public static final String DEFAULT_MSG_Error = "error";
+
     private String status;
 
     private String message;
@@ -20,11 +23,11 @@ public class RestResponse<T> implements Serializable {
 
     public static <T> RestResponse<T> success() {
         RestResponse<T> restResponse = new RestResponse<>();
-        return restResponse.status(STATUS_SUCCESS);
+        return restResponse.status(STATUS_SUCCESS).message(DEFAULT_MSG_SUCCESS);
     }
     public static <T> RestResponse<T> success(T data) {
         RestResponse<T> restResponse = new RestResponse<>();
-        return restResponse.status(STATUS_SUCCESS).data(data);
+        return restResponse.status(STATUS_SUCCESS).data(data).message(DEFAULT_MSG_SUCCESS);
     }
     public static <T> RestResponse<T> success(String message, T data) {
         RestResponse<T> restResponse = new RestResponse<>();
@@ -32,7 +35,7 @@ public class RestResponse<T> implements Serializable {
     }
     public static <T> RestResponse<T> error() {
         RestResponse<T> restResponse = new RestResponse<>();
-        return restResponse.status(STATUS_ERROR);
+        return restResponse.status(STATUS_ERROR).message(DEFAULT_MSG_Error);
     }
     public static <T> RestResponse<T> error(String message) {
         RestResponse<T> restResponse = new RestResponse<>();
