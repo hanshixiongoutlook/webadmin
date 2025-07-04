@@ -42,6 +42,11 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * 配置Rest返回值结构
      * 根据MIME自动识别xml或json
+     * Http Header
+     *      Accept -> application/xml 返回值为xml格式
+     *      Accept -> application/json 返回值为json格式
+     *      Accept -> * 返回值为json格式(defaultContentType)
+     *
      * json需要此依赖
      * <dependency>
      * <groupId>com.fasterxml.jackson.core</groupId>

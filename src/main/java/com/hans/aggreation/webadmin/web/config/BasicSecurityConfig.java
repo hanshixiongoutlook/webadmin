@@ -31,18 +31,18 @@ public class BasicSecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/authenticateTheUser") // 对应登录表单的 action
+                        .loginProcessingUrl("/authenticateTheUser") // 对应登录表单的 action，用于登录信息校验
                         .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error=true")
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/login")
                         .permitAll()
                 ).authenticationProvider(authenticationProvider())
                 // 开启Basic认证，支持通过在Header中添加 Authorization方式调用接口
                 // Authorization Basic Base64Encode(username:password)
                 .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable()); // 禁用 CSRF 保护（如果需要）
+                .csrf(csrf -> csrf.disable()); // 禁用 CSRF 保护，前端需要post时，通常禁用
         return http.build();
     }
 

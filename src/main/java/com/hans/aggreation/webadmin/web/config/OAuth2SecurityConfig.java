@@ -29,6 +29,9 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 import java.io.IOException;
 
+/**
+ * OAuth2 认证
+ */
 @Slf4j
 @ConditionalOnExpression("${spring.security.enabled:false} and '${spring.security.type}'.equals('OAuth2')")
 @EnableWebSecurity(debug = false)
@@ -38,6 +41,11 @@ public class OAuth2SecurityConfig {
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    /**
+     * 认证管理器，登录时使用
+     * @return
+     */
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -57,14 +65,11 @@ public class OAuth2SecurityConfig {
                 .sessionManagement(SessionManagementConfigurer::disable) // 采用Token方式认证，因此可以关闭session管理
                 .formLogin(AbstractHttpConfigurer::disable) // 禁用原来的登录页面
                 .logout(LogoutConfigurer::disable) // 禁用原来的登出
-                .exceptionHandling(ex->ex.authenticationEntryPoint(new AuthenticationEntryPoint() {
-                    @Override
-                    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-                        log.debug("认证失败...");
-                        RestResponse<String> result = RestResponse.error(authException.getMessage());
-                        response.setContentType("application/json");
-                        response.getWriter().println(JacksonUtil.toJson(result));
-                    }
+                .exceptionHandling(ex->ex.authenticationEntryPoint((request, response, authException) -> {
+                    log.debug("认证失败...");
+                    RestResponse<String> result = RestResponse.error(authException.getMessage());
+                    response.setContentType("application/json");
+                    response.getWriter().println(JacksonUtil.toJson(result));
                 }));
         return http.build();
     }

@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * 允许直接访问所有地址
+ */
 @Slf4j
 @ConditionalOnExpression("!${spring.security.enabled:false}")
 @EnableWebSecurity(debug = false)
